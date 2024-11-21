@@ -3,102 +3,61 @@ package com.project.coffeexpressapp.model;
 import jakarta.persistence.*;
 
 import java.sql.Blob;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "Users")
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String user_mail;
-    private String user_password;
-    private String user_firstname;
-    private String user_lastname;
-    private String user_address;
-    private String user_phone;
-    private Blob user_picture;
-    private Date user_creation_date;
+    @OneToOne(mappedBy = "user")
+    private ShoppingCart shopCart;
 
-    public Users(int id, String user_mail, String user_password, String user_firstname, String user_lastname, String user_address, String user_phone, Blob user_picture, Date user_creation_date) {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Orders> orders;
+
+    @Column(name = "user_mail", nullable = false, length = 50, unique = true)
+    private String email;
+
+    @Column(name = "user_password", nullable = false, length = 50)
+    private String password;
+
+    @Column(name = "user_firstname", nullable = false, length = 50)
+    private String firstName;
+
+    @Column(name = "user_lastname", nullable = false, length = 50)
+    private String lastName;
+
+    @Column(name = "user_address", nullable = false, length = 50)
+    private String address;
+
+    @Column(name = "user_phone", length = 20)
+    private String phone;
+
+    @Column(name = "user_picture")
+    private Blob picture;
+
+    @Column(name = "user_creation_date", nullable = false)
+    private LocalDateTime creationDate;
+
+    public Users(int id, ShoppingCart shopCart, String email, String password, String firstName, String lastName, String address, String phone, Blob picture, LocalDateTime creationDate) {
         this.id = id;
-        this.user_mail = user_mail;
-        this.user_password = user_password;
-        this.user_firstname = user_firstname;
-        this.user_lastname = user_lastname;
-        this.user_address = user_address;
-        this.user_phone = user_phone;
-        this.user_picture = user_picture;
-        this.user_creation_date = user_creation_date;
+        this.shopCart = shopCart;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.picture = picture;
+        this.creationDate = creationDate;
     }
 
     public Users() {
-    }
-
-    public Date getUser_creation_date() {
-        return user_creation_date;
-    }
-
-    public void setUser_creation_date(Date user_creation_date) {
-        this.user_creation_date = user_creation_date;
-    }
-
-    public Blob getUser_picture() {
-        return user_picture;
-    }
-
-    public void setUser_picture(Blob user_picture) {
-        this.user_picture = user_picture;
-    }
-
-    public String getUser_phone() {
-        return user_phone;
-    }
-
-    public void setUser_phone(String user_phone) {
-        this.user_phone = user_phone;
-    }
-
-    public String getUser_address() {
-        return user_address;
-    }
-
-    public void setUser_address(String user_address) {
-        this.user_address = user_address;
-    }
-
-    public String getUser_lastname() {
-        return user_lastname;
-    }
-
-    public void setUser_lastname(String user_lastname) {
-        this.user_lastname = user_lastname;
-    }
-
-    public String getUser_firstname() {
-        return user_firstname;
-    }
-
-    public void setUser_firstname(String user_firstname) {
-        this.user_firstname = user_firstname;
-    }
-
-    public String getUser_password() {
-        return user_password;
-    }
-
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
-    }
-
-    public String getUser_mail() {
-        return user_mail;
-    }
-
-    public void setUser_mail(String user_mail) {
-        this.user_mail = user_mail;
     }
 
     public int getId() {
@@ -107,5 +66,77 @@ public class Users {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public ShoppingCart getShopCart() {
+        return shopCart;
+    }
+
+    public void setShopCart(ShoppingCart shopCart) {
+        this.shopCart = shopCart;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Blob getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Blob picture) {
+        this.picture = picture;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }
